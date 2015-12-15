@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta content='text/html; charset=UTF-8' http-equiv='Content-Type'/>
+<link rel="stylesheet" type = "text/css" href = "style.css"
+</head>
+<body id="quality" class ="backgr">
+	<div id="SMK"><a href="index.html"><img src = "CMK.jpg" width = 100% height = 100% /></a></div>
+	<div id= "adress"><h1>Компетентное разъяснение требований | передача знаний | издание простых документов</h1></div>
+      <div class = "left_column">  
+      <div id="elem_column"><a href="about.html"> <h4>Об организации</h4></a></div>
+      <div id="elem_column">Контакты</div>
+      <div id="elem_column">Заявка на услугу</div>
+  </div>
+</body>
+</html>

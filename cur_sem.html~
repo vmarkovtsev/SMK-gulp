@@ -1,0 +1,25 @@
+doctype html
+html
+  head
+    meta(content='text/html; charset=UTF-8', http-equiv='Content-Type')
+    link(rel='stylesheet', type='text/css', href='style.css')
+    link(rel='stylesheet', type='text/css', href='animate.css')
+    link(rel='stylesheet', type='text/css', href='img.css')
+  body#cur_sem.backgr
+    #SMK
+      a.transition(href='index.html')
+        img(src='CMK.jpg', width='100%', height='100%')
+    #adress
+      h1
+        | Компетентное разъяснение требований | передача знаний | издание простых документов
+    .left_column
+      #elem_column.transition
+        a(href='about.html')
+          h3 Об организации
+      #elem_column.transition
+        a(href='contacts.html')
+          h3 Контакты
+      #elem_column.transition
+        h3 Заявка на услугу
+    .test(rel='bookmark')
+
