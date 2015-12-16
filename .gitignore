@@ -3,3 +3,4 @@
 *.css~
 *.styl~
 *.js~
+node_modules
