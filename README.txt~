@@ -1,0 +1,146 @@
+This is a gulp-version of site for SMK-center. 
+
+If you want to run a project, you must install npm packajes gulp-jade gulp-stylus gulp-coffee gulp-livereload nib gulp-imagemin gulp-uglify gulp-concat connect connect-livereload serve-static --save-dev
+
+Конфигурация
+
+Приступаем к настройке файла конфигурации gulpfile.js, который мы создали в корневом каталоге проекта.
+
+var gulp = require('gulp'),
+    jade = require('gulp-jade'),
+    stylus = require('gulp-stylus'),
+    coffee = require('gulp-coffee'),
+    livereload = require('gulp-livereload'),
+    imagemin = require('gulp-imagemin'),
+    concat = require('gulp-concat'),
+    connect = require('connect'),
+    serveStatic = require('serve-static'),
+    nib = require('nib');
+
+
+/*
+ * Создаём задачи 
+ *
+ * stylus – для CSS-препроцессора Stylus
+ * jade – для HTML-препроцессора Jade
+ * coffee – для JavaScript-препроцессора CoffeеScript
+ * concat – для склейки всех CSS и JS в отдельные файлы
+ */
+
+gulp.task('stylus', function() {
+    gulp.src('./styl/*.styl')
+    	.pipe(stylus({use: nib(), compress: true}))
+	    .on('error', console.log) // Выводим ошибки в консоль
+	    .pipe(gulp.dest('./public/css/')) // Выводим сгенерированные CSS-файлы в ту же папку по тем же именем, но с другим расширением
+	    .pipe(livereload()); // Перезапускаем сервер LiveReload
+});
+
+gulp.task('jade', function(){
+	gulp.src('./*.jade')
+		.pipe(jade({pretty: true}))
+		.on('error', console.log) // Выводим ошибки в консоль
+	  .pipe(gulp.dest('./public/')) // Выводим сгенерированные HTML-файлы в ту же папку по тем же именем, но с другим расширением
+	  .pipe(livereload()); // Перезапускаем сервер LiveReload
+});
+
+gulp.task('coffee',function(){
+	gulp.src('./coffee/*.coffee')
+		.pipe(coffee({bare: true}))
+		.on('error', console.log) // Выводим ошибки в консоль
+	   .pipe(gulp.dest('./public/js')) // Выводим сгенерированные JavaScript-файлы в ту же папку по тем же именем, но с другим расширением
+	   .pipe(livereload()); // Перезапускаем сервер LiveReload
+});
+
+gulp.task('concat', function(){
+  gulp.task('coffee');
+	gulp.src('./public/js/*.js')
+		.pipe(concat('scripts.js'))
+    .pipe(gulp.dest('./public/min/'))
+		.pipe(livereload());
+  gulp.task('styl');
+	gulp.src('./public/css/*.css')
+		.pipe(concat('styles.css'))
+    .pipe(gulp.dest('./public/min/'))
+		.pipe(livereload());
+});
+
+gulp.task('imagemin',function(){
+	 gulp.src('./img/**/*')
+        .pipe(imagemin())
+        .pipe(gulp.dest('./public/img/'));
+});
+
+/*
+ * Создадим веб-сервер, чтобы работать с проектом через браузер
+ */
+ gulp.task('server', function() {
+    connect()
+    	.use(require('connect-livereload')())
+    	.use(serveStatic(__dirname + '/public'))
+      .listen('3333');
+
+    console.log('Сервер работает по адресу http://localhost:3333');
+});
+
+ /*
+  * Создадим задачу, смотрящую за изменениями
+  */
+ gulp.task('watch', function(){
+      livereload.listen();
+  		gulp.watch('./styl/*.styl',['stylus']);
+    	gulp.watch('./*.jade',['jade']);
+  		gulp.watch('./coffee/*.coffee',['coffee']);
+   		gulp.watch(['./public/js/*.js','./public/css/*.css'],['concat']);
+    	gulp.watch('./img/**/*',['imagemin']);
+  	  gulp.start('server');
+  });
+
+ gulp.task('default',['watch','stylus','jade','coffee','concat','imagemin']);
+view raw
+gulpfile.js hosted with ❤ by GitHub
+
+После сохранения файла, в консоли, находясь в папке проекта, запустите команду gulp.
+
+ 
+
+Тестовый проект с уже созданными файлами для Stylus, Jade и CoffeeScript можно скачать по адресу:
+
+Simple template for gulp working dir.
+https://github.com/codemotion/gulp-tpl
+5 forks.
+0 open issues.
+Recent commits:
+
+    Publish after testing., Dmitriy Belyaev
+    Initial commit, Dmitriy Belyaev
+
+ 
+
+Если у вас есть какие-либо вопросы по этой теме, задавайте их в комментариях.
+Похожие публикации
+
+    CodeKit – лучший помощник веб-разработчика
+    CodeKit – лучший помощник веб-разработчика
+    Bower – обзор пакетного менеджера
+    Bower – обзор пакетного менеджера
+    Yeoman – генератор программного кода
+    Yeoman – генератор программного кода
+    Spotlight 01 — Node.js | Express.js | Gulp.js | Snap.svg
+    Spotlight 01 — Node.js | Express.js | Gulp.js | Snap.svg
+
+Поделиться
+
+    812
+
+Комментарии Правила дискуссии
+Подписка
+
+Вы можете оформить подписку по электронной почте, чтобы всегда быть в курсе публикуемых материалов.
+
+отписаться
+
+Рекомендации
+ihc
+supereg
+Яндекс.Метрика
+
